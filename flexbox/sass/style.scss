@@ -1,0 +1,114 @@
+@import "compass/reset";
+
+@mixin flexbox() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin flex($values) {
+  -webkit-box-flex: $values;
+  -moz-box-flex: $values;
+  -webkit-flex: $values;
+  -ms-flex: $values;
+  flex: $values;
+}
+
+@mixin order($order) {
+  -webkit-box-ordinal-group: $order;
+  -moz-box-ordinal-group: $order;
+  -ms-flex-order: $order;
+  -webkit-order: $order;
+  order: $order
+}
+
+.site {
+  width: 80%;
+  margin: auto;
+  font-family: arial, helvetica, sans-serif;
+  line-height: 1.2em;
+  @include flexbox();
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+
+.header {
+  background: red;
+}
+
+.main {
+  @include flex(1);
+}
+
+.main {
+  background: yellow;
+}
+
+nav {
+  .links {
+    @include flexbox();
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    background: deepskyblue;
+    li {
+
+    }
+    a {
+      color: white;
+      font-weight: bold;
+      display: block;
+      padding: 10px;
+      text-decoration: none;
+      &:link {
+        color: darkblue;
+      }
+      &:visited {
+        color: yellow;
+      }
+      &:hover {
+        background: darken(deepskyblue, 3%);
+      }
+      &:active {
+        color: red;
+      }
+    }
+  }
+}
+
+.footer {
+  background: lightgreen;
+}
+
+h1, h2 {
+  padding: 5px;
+  font-weight: bold;
+  text-align: center;
+}
+
+h1 {
+  font-size: 1.6em;
+}
+
+h2 {
+  font-size: 1.3em;
+}
+
+@media only screen and (max-width: 800px){
+  .links {
+    background: red;
+    justify-content: space-around;
+  }
+}
+
+@media only screen and (max-width: 500px){
+  .site {
+    width: 100%;
+  }
+  .links {
+    background: orange;
+    align-items: center;
+  }
+}

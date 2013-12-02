@@ -1,0 +1,112 @@
+// Reset styles
+@import 'compass/reset';
+
+$body_width: 90%;
+$nav_width: 20%;
+$main_width: 50%;
+$right_width: 30%;
+
+nav, #main_section, #right_section {
+  background: red;
+}
+
+
+body {
+  background: dodgerblue;
+  width: $body_width;
+  margin: 0 auto;
+  font-family: arial, sans-serif;
+}
+
+@mixin header {
+  font-weight: bold;
+  text-align: center;
+  font-size: 2em;
+  padding: 5px 0;
+  margin: 5px 0;
+  background: lightblue;
+}
+
+@mixin unorderedList {
+  margin-left: 20px;
+}
+
+@mixin listItem {
+  margin-left: 10px;
+  padding: 3px 0;
+}
+
+@mixin paragraph {
+  margin: 5px;
+  padding: 5px;
+}
+
+a {
+  display: block;
+  text-decoration: none;
+  width: 50px;
+  padding: 5px;
+  &:link {
+    color: yellow;
+  }
+  &:visited {
+    color: darkblue;
+  }
+  &:hover {
+    background: yellow;
+    color: saddlebrown;
+  }
+  &:active{
+    color: blue;
+  }
+}
+
+h1 {
+  @include header;
+}
+
+h2 {
+  @include header;
+  font-size: 1.5em;
+}
+
+ul {
+  @include unorderedList;
+}
+
+li {
+  @include listItem;
+}
+
+p {
+  @include paragraph;
+}
+
+.left {
+  float: left;
+}
+
+/* Total width of nav + main_section + right_section = width of body (which is 90%) */
+nav {
+  width: $nav_width;
+}
+
+#main_section {
+  width: $main_width;
+}
+
+#right_section {
+  width: $right_width;
+}
+
+footer {
+  margin-top: 10px;
+}
+
+.clearfix {
+  &:before {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
