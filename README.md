@@ -1,4 +1,4 @@
 playground
 ==========
 
-this is where I try html and css stuff out that i've learned...
+this is where I try stuff out: html, AJAX, css(3), jQuery, JavaScript, etc.
