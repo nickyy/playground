@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Street Foods</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <style>
+            * {
+                font-family: arial, sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+
+            header {
+                height: 50px;
+            }
+
+            footer {
+                height: 50px;
+                text-align: center;
+            }
+
+            p {
+                padding: 10px 0;
+            }
+
+            .error {
+                color: red;
+                font-style: italic;
+            }
+
+            .resultTable {
+                width: 90%;
+                margin: 20px auto;
+            }
+
+            footer, header {
+                background-color: cornflowerblue;
+            }
+
+            .tableHeader {
+                background-color: cornflowerblue;
+            }
+
+            .tableHeaderName {
+                padding: 7px;
+                width: 35%;
+            }
+            
+            .vendorName {
+                text-align: center;
+            }
+
+            .vendorDesc {
+                font-style: italic;
+            }
+
+            td {
+                border-collapse: collapse;
+                padding: 5px;
+            }
+
+        </style>
+		<script>
+			function getFoodInfo(){
+				var city = document.getElementById("city");
+                var output = document.getElementById("output");
+
+                if (city.value == ""){
+                    output.innerHTML = "Please enter a city";
+                    return false;
+                }
+
+                // use YQL to get json data, http://developer.yahoo.com/yql/
+                $.ajax({
+                    url: "http://query.yahooapis.com/v1/public/yql",
+                    data:{
+                        q: "select * from json where url='http://data.streetfoodapp.com/1.1/schedule/" + city.value.toLocaleLowerCase() + "'",
+                        format: "json"
+                    },
+                    success: function(response){
+                        // Check if response returned is empty
+                        if ($.isEmptyObject(response.query.results)){
+                            output.innerHTML = "City not found. Enter another city.";
+                        }
+                        // Response is not empty
+                        else {
+                            var table = $('.resultTable').append('<table></table>');
+                            var tableHeader = $('<thead></thead>').addClass("tableHeader");
+                            var tableHeaderName = $('<th></th>').addClass("tableHeaderName").text("Establishment Name");
+                            var tableHeaderDesc = $('<th></th>').addClass("tableHeaderDesc").text("Description");
+                            var tableBody = $('<tbody></tbody>');
+
+                            // Clear table and any messages
+                            output.innerHTML = "";
+                            table.empty();
+
+                            // Append <thead>
+                            table.append(tableHeader);
+
+                            // Append header rows
+                            tableHeader.append(tableHeaderName);
+                            tableHeader.append(tableHeaderDesc);
+
+                            // Append <tbody> tags
+                            table.append(tableBody);
+
+                            // Loop through each returned record and append to the table body
+                            $.each(response.query.results.json.vendors, function(index1, vendors){
+                                var row = $('<tr></tr>').addClass("resultRow");
+                                var name = $('<td></td>').addClass("vendorName").text(vendors.name);
+                                var desc = $('<td></td>').addClass("vendorDesc").text(vendors.description);
+                                tableBody.append(row);
+                                row.append(name);
+                                row.append(desc);
+
+                                // Note that jQuery table indexing starts at 0 (even)
+                                $("tr:odd").css("background-color", "#fff");
+                                $("tr:even").css("background-color", "#ccc");
+                            });
+                        }
+                    }
+                });
+                return false;
+			}
+		</script>
+	</head>
+
+	<body>
+		<header>
+			<h1>This is Street Food App</h1>
+		</header>
+
+		<main>
+			<form action="" name="lookup" onsubmit="return getFoodInfo()">
+        		<label for="city">City:</label>
+        		<input type="text" id="city" name="city">
+        		<button id="lookup" name="lookup">Lookup</button>
+        		<input type="reset" value="Clear">
+    		</form>
+            <div id="output" class="error"></div>
+            <div class="resultTable"></div>
+		</main>
+
+        <footer>
+            <p>Copyright &copy; 2013, Nicky Yuen</p>
+        </footer>
+	</body>
+</html>
