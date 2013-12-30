@@ -11,6 +11,11 @@
                 padding: 0;
             }
 
+            body {
+                width: 80%;
+                margin: 0 auto;
+            }
+
             header {
                 height: 50px;
             }
@@ -29,8 +34,8 @@
                 font-style: italic;
             }
 
-            .resultTable {
-                width: 90%;
+            .resultContainer {
+                width: 80%;
                 margin: 20px auto;
             }
 
@@ -38,17 +43,33 @@
                 background-color: cornflowerblue;
             }
 
+            .resultTable {
+                border-collapse: collapse;
+                width: 100%;
+            }
+
             .tableHeader {
                 background-color: cornflowerblue;
             }
 
-            .tableHeaderName {
+            .tableHeaderName, .tableHeaderDesc {
                 padding: 7px;
+            }
+
+            .tableHeaderName {
                 width: 35%;
+            }
+
+            .tableHeaderDesc {
+                width: 65%;
             }
             
             .vendorName {
                 text-align: center;
+            }
+
+            a.vendorURL {
+                text-decoration: none;
             }
 
             .vendorDesc {
@@ -56,8 +77,11 @@
             }
 
             td {
-                border-collapse: collapse;
                 padding: 5px;
+            }
+
+            .hide {
+                display: none;
             }
 
         </style>
@@ -78,14 +102,20 @@
                         q: "select * from json where url='http://data.streetfoodapp.com/1.1/schedule/" + city.value.toLocaleLowerCase() + "'",
                         format: "json"
                     },
+
+                    // Show loading image
+                    beforeSend: function(){
+                        $('#loading').show();
+                    },
+
                     success: function(response){
                         // Check if response returned is empty
-                        if ($.isEmptyObject(response.query.results)){
+                        if ($.isEmptyObject(response.query.results) || (response.query.results.json.metadata == null)){
                             output.innerHTML = "City not found. Enter another city.";
                         }
                         // Response is not empty
                         else {
-                            var table = $('.resultTable').append('<table></table>');
+                            var table = $('<table></table>').addClass("resultTable");
                             var tableHeader = $('<thead></thead>').addClass("tableHeader");
                             var tableHeaderName = $('<th></th>').addClass("tableHeaderName").text("Establishment Name");
                             var tableHeaderDesc = $('<th></th>').addClass("tableHeaderDesc").text("Description");
@@ -93,7 +123,10 @@
 
                             // Clear table and any messages
                             output.innerHTML = "";
-                            table.empty();
+                            $('.resultContainer').empty();
+
+                            // Create table within the container
+                            $('.resultContainer').append(table);
 
                             // Append <thead>
                             table.append(tableHeader);
@@ -106,10 +139,23 @@
                             table.append(tableBody);
 
                             // Loop through each returned record and append to the table body
-                            $.each(response.query.results.json.vendors, function(index1, vendors){
+                            $.each(response.query.results.json.vendors, function(i, vendors){
+                                // Add a new row for each vendor
                                 var row = $('<tr></tr>').addClass("resultRow");
-                                var name = $('<td></td>').addClass("vendorName").text(vendors.name);
+
+                                var url = vendors.url;
+                                // Populate vendor name cell
+                                if (vendors.url == "null") {
+                                    var name = $('<td></td>').addClass("vendorName").text(vendors.name);
+                                }
+                                else {
+                                    var link = '<a target="_blank" class="vendorURL" href="http://' + url + '">' + vendors.name + '</a>';
+                                    var name = $('<td></td>').addClass("vendorName").append(link);
+                                }
+
+                                // Populate vendor description cell
                                 var desc = $('<td></td>').addClass("vendorDesc").text(vendors.description);
+
                                 tableBody.append(row);
                                 row.append(name);
                                 row.append(desc);
@@ -119,6 +165,11 @@
                                 $("tr:even").css("background-color", "#ccc");
                             });
                         }
+                    },
+
+                    // Hide loading image
+                    complete: function(){
+                        $('#loading').hide();
                     }
                 });
                 return false;
@@ -138,12 +189,13 @@
         		<button id="lookup" name="lookup">Lookup</button>
         		<input type="reset" value="Clear">
     		</form>
+            <div id="loading" class="hide"><img alt="Loading..." src="images/ajax-loader.gif"></div>
             <div id="output" class="error"></div>
-            <div class="resultTable"></div>
+            <div class="resultContainer"></div>
 		</main>
 
         <footer>
-            <p>Copyright &copy; 2013, Nicky Yuen</p>
+            <p>Copyright &copy; 2013, Yuenworks Consulting, Inc.</p>
         </footer>
 	</body>
 </html>
