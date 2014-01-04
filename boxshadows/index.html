@@ -1,0 +1,247 @@
+<!--Based on http://cssdeck.com/labs/different-css3-box-shadows-effects-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Box Shadows</title>
+    <meta charset="utf-8">
+    <style>
+        body {
+            background: #ccc;
+            font-family: helvetica, sans-serif;;
+        }
+
+         /*Give body top shadow*/
+        body:before {
+            content: "";
+            position: fixed;
+            width: 100%;
+            height: 10px;
+            top: -10px;
+            box-shadow: 0 0 15px 2px rgba(0,0,0,0.9);
+            z-index: 100;
+
+        }
+
+		/* Generic box */
+        .box {
+            width: 70%;
+            margin: 100px auto;
+            height: 120px;
+            background: white;
+        }
+
+        h1 {
+            margin: 40px;
+            text-align: center;
+            font-size: 2em;
+        }
+        p {
+            font-size: 1.5em;
+            position: relative;
+            top: 40%;
+            text-align: center;
+        }
+		/**************************** Effect 1 ********************/
+        .effect1 {
+            box-shadow: 5px 5px 3px 3px #999;
+        }
+		/**************************** Effect 2 ********************/
+        .effect2 {
+            position: relative;
+        }
+
+        .effect2:before, .effect2:after {
+            z-index: -1;  /*move to the back*/
+            content: "";
+            position: absolute;
+            top: 50%;
+            bottom: 15px;
+            left: 10px;
+            width: 50%;
+            /*max-width: 300px;*/
+            box-shadow: 0 15px 11px rgba(0,0,0,0.9);
+            transform: rotate(-2deg);
+        }
+
+        .effect2:after {
+            transform: rotate(2deg);
+            right: 10px;
+            left: auto;
+        }
+		/**************************** Effect 3 ********************/
+        .effect3 {
+            position: relative;
+        }
+
+        .effect3:before {
+            position: absolute;
+            z-index: -1;
+            content: "";
+            top: 50%;
+            bottom: 15px;
+            left: 10px;
+            width: 50%;
+            box-shadow: 0 14px 10px rgba(0,0,0,0.9);
+            transform: rotate(-3deg);
+        }
+		/**************************** Effect 4 ********************/
+        .effect4 {
+            position: relative;
+        }
+
+        .effect4:before {
+            z-index: -1;
+            content: "";
+            position: absolute;
+            top: 50%;
+            bottom: 15px;
+            right: 10px;
+            width: 50%;
+            box-shadow: 0 15px 10px rgba(0,0,0,0.9);
+            transform: rotate(2deg);
+        }
+		/**************************** Effect 5 ********************/
+        .effect5 {
+            position: relative;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.3), 0 0 40px rgba(0,0,0,0.1) inset; /* inset and outset combined*/
+        }
+
+        .effect5:before, .effect5:after {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+            top: 50%;
+            bottom: 0;
+            left: 10px;
+            right: 10px;
+            border-radius: 100px/10px; /* this causes shadow to curve up slightly at the ends */
+        }
+
+        /* Not sure what this does. Seems to just lighten shadow. Still investigating! */
+        .effect5:after {
+            right: 40px;
+            left: auto;
+            transform: skew(8deg) rotate(3deg);
+        }
+        /**************************** Effect 6 ********************/
+        .effect6 {
+            position: relative;
+        }
+
+        .effect6:before {
+            content: "";
+            z-index: -1;
+            position: absolute;
+            box-shadow: 0 -15px 9px rgba(0,0,0,0.9);
+            width: 40%;
+            left: 6px;
+            top: 16px;
+            bottom: 40px;
+            transform: rotate(2deg);
+        }
+        /**************************** Effect 7 ********************/
+        .effect7 {
+            position: relative;
+        }
+
+        .effect7:before {
+            content: "";
+            z-index: -1;
+            position: absolute;
+            box-shadow: 0 -15px 9px rgba(0,0,0,0.9);
+            width: 40%;
+            right: 6px;
+            top: 16px;
+            bottom: 40px;
+            transform: rotate(-2deg);
+        }
+        /**************************** Effect 8 ********************/
+        .effect8 {
+            position: relative;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.3), 0 0 40px rgba(0,0,0,0.1) inset; /* inset and outset combined*/
+        }
+
+        .effect8:before, .effect8:after {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            box-shadow: 0 0 10px rgba(0,0,0,0.8);
+            top: 0;
+            bottom: 0;
+            left: 10px;
+            right: 10px;
+            border-radius: 100px/10px; /* this causes shadow to curve up slightly at the ends */
+        }
+
+        /* Not sure what this does. Seems to just lighten shadow. Still investigating! */
+        .effect8:after {
+            right: 40px;
+            left: auto;
+            transform: skew(8deg) rotate(3deg);
+        }
+        /**************************** Effect 9 ********************/
+        .effect9 {
+            position: relative;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.3), 0 0 40px rgba(0,0,0,0.1) inset; /* inset and outset combined*/
+        }
+
+        .effect9:before, .effect9:after {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            top: 20px;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            border-radius: 10px/100px; /* this causes shadow to curve up slightly at the ends */
+        }
+
+        /* Not sure what this does. Seems to just lighten shadow. Still investigating! */
+        .effect9:after {
+            right: 140px;
+            left: auto;
+            transform: skew(8deg) rotate(3deg);
+        }
+    </style>
+</head>
+<body>
+    <h1>Box Shadows</h1>
+    <div class="box effect1">
+        <p>Effect 1: Normal box shadow</p>
+    </div>
+
+    <div class="box effect2">
+        <p>Effect 2: Lower corners lifted</p>
+    </div>
+
+    <div class="box effect3">
+        <p>Effect 3: Lower-left corner lifted</p>
+    </div>
+
+    <div class="box effect4">
+        <p>Effect 4: Lower-right corner lifted</p>
+    </div>
+
+    <div class="box effect5">
+        <p>Effect 5: Bottom shadow; bottom lifted; inset/outset</p>
+    </div>
+
+    <div class="box effect6">
+        <p>Effect 6: Upper-left corner lifted</p>
+    </div>
+
+    <div class="box effect7">
+        <p>Effect 7: Upper-right corner lifted</p>
+    </div>
+
+    <div class="box effect8">
+        <p>Effect 8: Top and bottom shadows; middle lifted; inset/outset</p>
+    </div>
+
+    <div class="box effect9">
+        <p>Effect 9: Left and right shadows; inset/outset</p>
+    </div>
+</body>
+</html>
