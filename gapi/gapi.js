@@ -36,8 +36,8 @@ function handleCoreReportingResults(results){
 
 // Construct table with results
 function printResults(results){
+    var output = document.getElementById("output");
     if (results.rows && results.rows.length){
-        var output = document.getElementById("output");
         output.innerHTML = "";
 
         var table = $("<table></table>").addClass("outputTable");
