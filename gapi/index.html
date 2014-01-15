@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Google Analytics API</title>
+    <meta charset="utf-8">
+
+    <!--jQuery library-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <!--jQuery date picker-->
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script>
+        $(function(){
+            $(".datepicker").datepicker({
+                dateFormat: "yy-mm-dd"
+            });
+        })
+    </script>
+
+    <!--Stylesheet-->
+    <link rel="stylesheet" type="text/css" href="scss/stylesheets/style.css">
+    </head>
+<body>
+    <h1>Google Analytics API</h1>
+
+    <!--Get user input-->
+    <form id="userInput">
+        <div class="form_field">
+            <label for="viewId">View ID</label>
+            <input type="text" name="viewId" id="viewId" placeholder="ga:12345678">
+        </div>
+
+        <div class="form_field">
+            <label for="startDate">Start Date</label>
+            <input type="text" name="startDate" id="startDate" class="datepicker" placeholder="YYYY-MM-DD">
+        </div>
+
+        <div class="form_field">
+            <label for="endDate">End Date</label>
+            <input type="text" name="endDate" id="endDate" class="datepicker" placeholder="YYYY-MM-DD">
+        </div>
+
+        <div id="dimensions">
+            <h2>Dimensions</h2>
+            <input type="checkbox" id="city" name="visits" value="ga:city"><label for="city">city</label>
+            <input type="checkbox" id="country" name="visits" value="ga:country"><label for="country">country</label>
+            <input type="checkbox" id="metro" name="visits" value="ga:metro"><label for="metro">metro</label>
+            <input type="checkbox" id="browser" name="visits" value="ga:browser"><label for="browser">browser</label>
+            <input type="checkbox" id="browserVersion" name="visits" value="ga:browserVersion"><label for="browser">browserVersion</label>
+            <input type="checkbox" id="operatingSystem" name="visits" value="ga:operatingSystem"><label for="metro">operatingSystem</label>
+            <input type="checkbox" id="operatingSystemVersion" name="visits" value="ga:operatingSystemVersion"><label for="metro">operatingSystemVersion</label>
+            <input type="checkbox" id="mobileDeviceModel" name="visits" value="ga:mobileDeviceModel"><label for="metro">mobileDeviceModel</label>
+            <input type="checkbox" id="mobileDeviceInfo" name="visits" value="ga:mobileDeviceInfo"><label for="metro">mobileDeviceInfo</label>
+            <input type="checkbox" id="mobileDeviceCategory" name="visits" value="ga:mobileDeviceCategory"><label for="metro">mobileDeviceCategory</label>
+        </div>
+    </form>
+
+    <!-- The 2 Buttons for the user to interact with -->
+    <button class="button" id="authorize-button" style="visibility: hidden">Authorise</button>
+    <button class="button" id="make-api-call-button" style="visibility: hidden">Make API Call</button>
+
+    <script src="gapi_auth.js"></script>
+    <script src="gapi.js"></script>
+    <script src="https://apis.google.com/js/client.js?onload=loadLib"></script>
+
+    <!--Display results-->
+    <div id="output"></div>
+</body>
+
+</html>
